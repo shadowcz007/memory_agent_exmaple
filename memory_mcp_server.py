@@ -196,7 +196,7 @@ class KnowledgeGraphManager:
         return results
 
 # 创建 MCP 服务器
-mcp = FastMCP("KnowledgeGraph", port=6688)
+mcp = FastMCP("KnowledgeGraph", port=6688 )
 kg_manager = KnowledgeGraphManager()
 
 @mcp.tool()
