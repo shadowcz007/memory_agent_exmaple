@@ -42,7 +42,7 @@ class KnowledgeGraphManager:
         
         try:
             if os.path.exists(self.memory_file_path):
-                with open(self.memory_file_path, "r") as f:
+                with open(self.memory_file_path, "r", encoding='utf-8') as f:
                     lines = f.read().split("\n")
                     for line in lines:
                         if line.strip():
@@ -59,11 +59,11 @@ class KnowledgeGraphManager:
     def save_graph(self, graph):
         lines = []
         for entity in graph["entities"]:
-            lines.append(json.dumps(entity))
+            lines.append(json.dumps(entity, ensure_ascii=False))
         for relation in graph["relations"]:
-            lines.append(json.dumps(relation))
+            lines.append(json.dumps(relation, ensure_ascii=False))
             
-        with open(self.memory_file_path, "w") as f:
+        with open(self.memory_file_path, "w", encoding='utf-8') as f:
             f.write("\n".join(lines))
     
     def create_entities(self, entities: List[Dict[str, Any]]):
