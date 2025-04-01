@@ -194,7 +194,70 @@ class KnowledgeGraphManager:
                 results.append(entity)
                 
         return results
-
+        
+    def find_nearest_farthest_nodes(self, start_node: str, max_depth: int = None):
+        """
+        使用BFS查找与给定节点最近和最远的节点
+        
+        参数:
+        - start_node: 起始节点名称
+        - max_depth: 最大搜索深度（可选）
+        
+        返回:
+        包含最近和最远节点的字典
+        """
+        graph = self.load_graph()
+        
+        # 检查起始节点是否存在
+        if not any(e["name"] == start_node for e in graph["entities"]):
+            raise ValueError(f"起始节点 {start_node} 不存在")
+            
+        # 构建邻接表
+        adjacency = {}
+        for entity in graph["entities"]:
+            adjacency[entity["name"]] = set()
+            
+        for relation in graph["relations"]:
+            from_node = relation["from"]
+            to_node = relation["to"]
+            adjacency[from_node].add(to_node)
+            adjacency[to_node].add(from_node)  # 假设关系是双向的
+            
+        # BFS实现
+        queue = [(start_node, 0)]  # (节点, 深度)
+        visited = {start_node}
+        nearest_nodes = []
+        farthest_nodes = []
+        current_depth = 0
+        max_depth_found = 0
+        
+        while queue:
+            node, depth = queue.popleft() if hasattr(queue, 'popleft') else queue.pop(0)
+            
+            # 更新最近和最远节点
+            if depth == 1:  # 最近的节点（深度为1）
+                nearest_nodes.append(node)
+            if depth > max_depth_found:  # 发现更远的节点
+                max_depth_found = depth
+                farthest_nodes = [node]
+            elif depth == max_depth_found:  # 同样远的节点
+                farthest_nodes.append(node)
+                
+            # 如果达到最大深度，停止继续搜索
+            if max_depth and depth >= max_depth:
+                continue
+                
+            # 遍历邻居节点
+            for neighbor in adjacency[node]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append((neighbor, depth + 1))
+        
+        return {
+            "nearest_nodes": nearest_nodes,
+            "farthest_nodes": farthest_nodes,
+            "max_depth": max_depth_found
+        }
 # 创建 MCP 服务器
 mcp = FastMCP("KnowledgeGraph", port=6688 )
 kg_manager = KnowledgeGraphManager()
@@ -290,6 +353,18 @@ def open_nodes(names: List[str]) -> str:
     - names: 要检索的实体名称列表
     """
     result = kg_manager.open_nodes(names)
+    return json.dumps(result, indent=2)
+
+@mcp.tool()
+def find_nearest_farthest_nodes(start_node: str, max_depth: int = None) -> str:
+    """
+    查找与给定节点最近和最远的节点
+    
+    参数:
+    - start_node: 起始节点名称
+    - max_depth: 最大搜索深度（可选）
+    """
+    result = kg_manager.find_nearest_farthest_nodes(start_node, max_depth)
     return json.dumps(result, indent=2)
 
 if __name__ == "__main__":
