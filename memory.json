@@ -1,1 +1,4 @@
-{"type": "entity", "name": "\u5f20\u4e09", "entityType": "\u4eba\u7269", "observations": ["\u662f\u4e00\u540d\u8f6f\u4ef6\u5de5\u7a0b\u5e08", "\u64c5\u957fPython\u7f16\u7a0b", "\u64c5\u957f\u7f16\u7a0b", "\u559c\u6b22\u65c5\u6e38", "\u4f4f\u5728\u5317\u4eac"]}
+{"type": "entity", "name": "区块链", "entityType": "技术", "observations": ["分布式账本", "加密技术", "去中心化", "智能合约"]}
+{"type": "entity", "name": "人工智能", "entityType": "领域", "observations": ["人工智能是一种技术"]}
+{"type": "relation", "from": "人工智能", "to": "区块链", "relationType": "融合"}
+{"type": "relation", "from": "区块链", "to": "人工智能", "relationType": "融合"}
