@@ -3,6 +3,72 @@ from typing import List, Dict, Any
 import json
 import os
 
+
+from starlette.middleware.cors import CORSMiddleware
+import uvicorn
+from starlette.applications import Starlette
+from starlette.routing import Route, Mount
+from starlette.requests import Request
+from mcp.server.sse import SseServerTransport
+
+# 创建 FastMCP 的子类并重写方法
+class CustomMCP(FastMCP):
+    def sse_app(self) -> Starlette:
+        
+        """Return an instance of the SSE server app."""
+        message_path = getattr(self.settings, "message_path", "/messages/")
+        sse = SseServerTransport(message_path)
+    
+        async def handle_sse(request: Request) -> None:
+            async with sse.connect_sse(
+                request.scope,
+                request.receive,
+                request._send,  # type: ignore[reportPrivateUsage]
+            ) as streams:
+                await self._mcp_server.run(
+                    streams[0],
+                    streams[1],
+                    self._mcp_server.create_initialization_options(),
+                )
+
+        sse_path=getattr(self.settings, "sse_path", "/sse")
+        app = Starlette(
+            debug=self.settings.debug,
+            routes=[
+                Route(sse_path, endpoint=handle_sse),
+                Mount(message_path, app=sse.handle_post_message),
+            ],
+        )
+        
+        # 添加 CORS 中间件
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],  # 调整此列表以允许特定来源
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
+        
+        return app
+        
+    async def run_sse_async(self) -> None:
+        """Run the server using SSE transport."""
+        starlette_app = self.sse_app()
+
+        config = uvicorn.Config(
+            starlette_app,
+            host=self.settings.host,
+            port=self.settings.port,
+            log_level=self.settings.log_level.lower(),
+        )
+        server = uvicorn.Server(config)
+        await server.serve()
+
+host= "0.0.0.0"
+port = 8000
+sse_path= "/sse"
+message_path = "/messages/"
+
+
 # 定义知识图谱的数据结构
 class Entity:
     def __init__(self, name: str, entity_type: str, observations: List[str] = None):
@@ -259,7 +325,10 @@ class KnowledgeGraphManager:
             "max_depth": max_depth_found
         }
 # 创建 MCP 服务器
-mcp = FastMCP("KnowledgeGraph", port=6688 )
+# mcp = FastMCP("KnowledgeGraph", port=6688)
+# 使用自定义的 MCP 类替代原来的 FastMCP
+mcp = CustomMCP("KnowledgeGraph",port=6688,message_path=message_path,host=host,sse_path=sse_path)
+
 kg_manager = KnowledgeGraphManager()
 
 @mcp.tool()
