@@ -1,4 +1,60 @@
 {"type": "entity", "name": "区块链", "entityType": "技术", "observations": ["分布式账本", "加密技术", "去中心化", "智能合约"]}
 {"type": "entity", "name": "人工智能", "entityType": "领域", "observations": ["人工智能是一种技术"]}
+{"type": "entity", "name": "通义千问", "entityType": "concept", "observations": ["阿里云研发的超大规模语言模型的名称", "具有广泛的知识基础和强大的问答能力，能够帮助用户解答各种问题，提供全面的信息支持"]}
+{"type": "entity", "name": "通义", "entityType": "concept", "observations": ["在中文里有广泛的含义，它可以指知识、智慧、理解力等，强调的是模型能够理解和生成具有广泛知识的文本"]}
+{"type": "entity", "name": "千问", "entityType": "concept", "observations": ["代表了模型可以回答各种问题，无论是常见的、复杂的还是专业的，都能给出相应的回答"]}
+{"type": "entity", "name": "碳中和", "entityType": "concept", "observations": ["在一个特定时期内，向大气中排放的温室气体总量与通过植树造林、节能减排等形式吸收的温室气体总量相等，实现温室气体的净零排放目标。简而言之，就是通过各种手段抵消掉造成的碳排放，使得总体的碳排放量为零。这个概念主要应用于应对气候变化、减缓全球变暖的环保行动中，强调了通过技术创新、能源转型、绿色生活等方式实现可持续发展的目标。"]}
+{"type": "entity", "name": "温室气体", "entityType": "concept", "observations": ["在碳中和概念中，需要考虑排放和吸收的温室气体总量。温室气体包括二氧化碳、甲烷、氧化亚氮等，它们对地球的气候系统有重要影响。"]}
+{"type": "entity", "name": "气候变化", "entityType": "concept", "observations": ["主要应用于应对气候变化、减缓全球变暖的环保行动中"]}
+{"type": "entity", "name": "全球变暖", "entityType": "concept", "observations": ["主要应用于应对气候变化、减缓全球变暖的环保行动中"]}
+{"type": "entity", "name": "SSH", "entityType": "concept", "observations": ["是一种网络安全协议", "用于在网络不安全的环境中提供安全的远程登录控制和其他网络服务", "被设计用来替代不安全的服务如 Telnet 和 FTP", "通过加密传输来保护使用网络的通信"]}
+{"type": "entity", "name": "Telnet", "entityType": "concept", "observations": ["不安全的服务"]}
+{"type": "entity", "name": "FTP", "entityType": "concept", "observations": ["不安全的服务"]}
+{"type": "entity", "name": "OpenSSH", "entityType": "concept", "observations": ["知名的开源 SSH 客户端和服务器实现"]}
+{"type": "entity", "name": "太阳能", "entityType": "concept", "observations": ["是一种可再生能源", "指的是利用太阳所发出的能量来产生电力或热能的过程", "可以通过收集、转换和利用太阳能来进行发电或提供热能"]}
+{"type": "entity", "name": "太阳", "entityType": "concept", "observations": ["不断地以电磁辐射的形式向宇宙释放能量", "其中大部分能量能到达地球"]}
+{"type": "entity", "name": "太阳能电池", "entityType": "concept", "observations": ["将太阳能直接转换为电力", "由多个单元组成", "每个单元都能将太阳光转化为直流电"]}
+{"type": "entity", "name": "逆变器", "entityType": "concept", "observations": ["将直流电转化为交流电"]}
+{"type": "entity", "name": "涡轮发电机", "entityType": "concept", "observations": ["使用蒸汽驱动涡轮发电机来产生电力"]}
+{"type": "entity", "name": "太阳能光伏发电", "entityType": "concept", "observations": ["通过太阳能电池（光伏板）将太阳能直接转换为电力"]}
+{"type": "entity", "name": "太阳能热能发电", "entityType": "concept", "observations": ["通过集热器吸收太阳辐射，加热水生产蒸汽", "使用蒸汽驱动涡轮发电机来产生电力"]}
+{"type": "entity", "name": "能源转型", "entityType": "concept", "observations": ["太阳能是一个在能源转型过程中日益重要的部分"]}
+{"type": "entity", "name": "自动驾驶", "entityType": "event", "observations": []}
+{"type": "entity", "name": "车辆", "entityType": "concept", "observations": []}
+{"type": "entity", "name": "传感器", "entityType": "concept", "observations": []}
+{"type": "entity", "name": "控制系统", "entityType": "concept", "observations": []}
+{"type": "entity", "name": "计算机科学", "entityType": "concept", "observations": []}
+{"type": "entity", "name": "传感器技术", "entityType": "concept", "observations": []}
 {"type": "relation", "from": "人工智能", "to": "区块链", "relationType": "融合"}
 {"type": "relation", "from": "区块链", "to": "人工智能", "relationType": "融合"}
+{"type": "relation", "from": "通义千问", "to": "通义", "relationType": "related_to"}
+{"type": "relation", "from": "通义千问", "to": "千问", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "温室气体", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "应对气候变化", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "减缓全球变暖", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "环保行动", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "技术创新", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "能源转型", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "绿色生活", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "可持续发展", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "气候变化", "relationType": "related_to"}
+{"type": "relation", "from": "碳中和", "to": "全球变暖", "relationType": "related_to"}
+{"type": "relation", "from": "SSH", "to": "Telnet", "relationType": "related_to"}
+{"type": "relation", "from": "SSH", "to": "FTP", "relationType": "related_to"}
+{"type": "relation", "from": "SSH", "to": "OpenSSH", "relationType": "created"}
+{"type": "relation", "from": "太阳能", "to": "太阳", "relationType": "related_to"}
+{"type": "relation", "from": "太阳能光伏发电", "to": "太阳能电池", "relationType": "uses"}
+{"type": "relation", "from": "太阳能电池", "to": "太阳", "relationType": "related_to"}
+{"type": "relation", "from": "太阳能电池", "to": "逆变器", "relationType": "uses"}
+{"type": "relation", "from": "太阳能热能发电", "to": "集热器", "relationType": "uses"}
+{"type": "relation", "from": "太阳能热能发电", "to": "涡轮发电机", "relationType": "uses"}
+{"type": "relation", "from": "太阳能", "to": "可持续性", "relationType": "related_to"}
+{"type": "relation", "from": "太阳能", "to": "环境友好", "relationType": "related_to"}
+{"type": "relation", "from": "太阳能", "to": "经济效益", "relationType": "related_to"}
+{"type": "relation", "from": "太阳能", "to": "增强能源独立性", "relationType": "related_to"}
+{"type": "relation", "from": "太阳能", "to": "能源转型", "relationType": "related_to"}
+{"type": "relation", "from": "自动驾驶", "to": "传感器", "relationType": "related_to"}
+{"type": "relation", "from": "自动驾驶", "to": "控制系统", "relationType": "related_to"}
+{"type": "relation", "from": "自动驾驶", "to": "计算机科学", "relationType": "related_to"}
+{"type": "relation", "from": "自动驾驶", "to": "人工智能", "relationType": "related_to"}
+{"type": "relation", "from": "自动驾驶", "to": "传感器技术", "relationType": "related_to"}
