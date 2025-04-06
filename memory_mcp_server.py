@@ -561,6 +561,94 @@ def get_user_preference(create_time: str = None, count: int = None) -> str:
     return chat_prompt
 
 @mcp.prompt()
+def chat_with_user_preference_prompt(create_time: str = None, count: int = None) -> str:
+    """
+    获取用户偏好数据并拼接到chat_prompt中返回
+    
+    参数:
+    - create_time: 筛选偏好的日期时间（可选）
+    - count: 返回的偏好数量（可选）
+    """
+    preference_file = "user_preference.json"
+  
+    # 读取用户偏好数据
+    if not os.path.exists(preference_file):
+        return "未找到用户偏好数据"
+    
+    try:
+        with open(preference_file, "r", encoding='utf-8') as f:
+            preferences = json.load(f)
+    except Exception as e:
+        return f"读取用户偏好数据失败: {e}"
+    
+    # 根据create_time筛选
+    if create_time:
+        filtered_prefs = [p for p in preferences if p.get("create_time", "").startswith(create_time)]
+    else:
+        filtered_prefs = preferences
+    
+    # 根据count限制数量
+    if count and count > 0:
+        filtered_prefs = filtered_prefs[:min(count, len(filtered_prefs))]
+    
+    # 如果没有符合条件的偏好数据
+    if not filtered_prefs:
+        return "没有找到符合条件的用户偏好数据"
+    
+    # 将偏好数据转换为JSON字符串
+    user_preferences_json = json.dumps(filtered_prefs, ensure_ascii=False, indent=2)
+    
+    # 拼接chat_prompt
+    chat_prompt = f"""
+你是一个智能且善于适应的 AI 助手。在与用户交互时，请务必参考并应用以下提供的用户偏好信息。这些信息反映了用户的习惯和需求，遵循它们能提供更个性化、更贴心的服务。
+
+当前用户偏好 (JSON 格式):
+
+{user_preferences_json}
+
+应用指南:
+
+1 解读偏好:
+
+- 仔细阅读 dimension 和 value 字段，理解用户的具体偏好。例如，"回答风格-长度": "concise" 意味着用户喜欢简短的回答；"技术背景-编程语言": ["JavaScript"] 表示用户熟悉 JavaScript。
+
+- confidence 字段（如果存在）表示该偏好的可信度。对于 low 置信度的偏好，请谨慎参考；对于 high 或 medium 置信度的偏好，应优先考虑。
+
+- evidence 字段提供了推断该偏好的依据，有助于你理解偏好的背景。
+
+2 调整回答:
+
+风格适应: 根据 "回答风格" (长度、深度、正式度) 和 "语言与语气" (风格、表情符号使用) 调整你的措辞和表达方式。
+
+3 内容定制:
+
+- 根据 "学习与解释方式" 选择最适合用户的解释方法（如代码示例、类比）。
+
+- 根据 "技术背景与工具" 调整技术内容的深度，使用用户熟悉的语言或工具进行举例。
+
+- 在涉及相关领域时，务必考虑 "领域特定偏好"（如推荐食谱时考虑素食偏好）。
+
+4 格式选择: 如果用户有 "格式偏好"（如列表、表格），尽量满足。
+
+5 优先级:
+
+- 当前指令优先: 如果用户在当前问题中明确提出了与已存偏好不同的要求（例如，偏好简短回答的用户这次要求"请详细解释"），请优先遵循用户的当前指令。
+
+- 高置信度优先: 在没有明确指令冲突时，优先应用置信度高的偏好。
+
+6 处理缺失/冲突:
+
+- 偏好缺失: 如果某个维度的偏好没有记录，请使用通用的最佳实践（清晰、中立、适度详细）来回应。
+
+- 偏好冲突 (理论上不应由该 Prompt 处理，应在生成偏好时解决): 如果遇到内部冲突的偏好，请尝试理解用户意图或使用最通用、最安全的选项。
+
+你的目标: 像一个了解用户习惯的朋友一样进行交流，提供精准、贴心且高效的帮助。
+"""
+    
+    return chat_prompt
+
+
+@mcp.prompt()
 def user_preference_extract_prompt(message: str) -> str:
     """
     从对话历史中提取用户偏好的提示词
