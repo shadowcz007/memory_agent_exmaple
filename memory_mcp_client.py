@@ -62,7 +62,7 @@ async def run():
             # 需要将DATE替换为实际的日期前缀(例如"2023-10-24")
             print("\n测试按日期筛选偏好...")
             result = await session.call_tool("get_user_preference", {"create_time": "DATE"})
-            print(result)
+            print(f"按日期筛选的用户偏好:\n{result[:300]}...(内容较长，省略部分显示)")
 
             # # 列出可用工具
             # print("\n获取可用工具列表...")
