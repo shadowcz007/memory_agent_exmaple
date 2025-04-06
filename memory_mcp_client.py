@@ -12,14 +12,57 @@ async def run():
             await session.initialize()
             print("连接初始化完成")
 
-            result = await session.get_prompt("user_preference_extract_prompt", {
-                    "message":json.dumps([
-                        {"role": "user", "content": "用户消息1"},
-                        {"role": "assistant", "content": "助手回复1"},
-                        {"role": "user", "content": "用户消息2"}
-                    ],ensure_ascii=False,indent=2) 
+            # result = await session.get_prompt("user_preference_extract_prompt", {
+            #         "message":json.dumps([
+            #             {"role": "user", "content": "用户消息1"},
+            #             {"role": "assistant", "content": "助手回复1"},
+            #             {"role": "user", "content": "用户消息2"}
+            #         ],ensure_ascii=False,indent=2) 
+            # })
+            # print(f"用户偏好prompt: {result}")
+
+            # 测试 update_user_preference 工具
+            # print("\n测试 update_user_preference...")
+            # preferences = [
+            #     {
+            #         "dimension": "回答风格-长度",
+            #         "value": "concise", 
+            #         "confidence": "high",
+            #         "evidence": "用户说：'长话短说，告诉我关键点就行。'"
+            #     },
+            #     {
+            #         "dimension": "技术背景-编程语言",
+            #         "value": ["Python", "JavaScript"],
+            #         "confidence": "medium",
+            #         "evidence": "用户多次询问关于Python和React的问题。"
+            #     },
+            #     {
+            #         "dimension": "语言与语气-语言风格",
+            #         "value": "casual_with_emoji",
+            #         "confidence": "medium",
+            #         "evidence": "用户在对话中经常使用表情符号。"
+            #     }
+            # ]
+            # result = await session.call_tool("update_user_preference", {"preferences": preferences})
+            # print(f"更新用户偏好结果: {result}")
+            
+            # 测试 get_user_preference 工具
+            print("\n测试 get_user_preference...")
+            # 获取所有偏好
+            result = await session.call_tool("get_user_preference", { 
             })
-            print(f"用户偏好prompt: {result}")
+            print(result)
+            
+            # 测试限制数量的参数
+            print("\n测试限制偏好数量...")
+            result = await session.call_tool("get_user_preference", {"count": 1})
+            print(result)
+            
+            # 注：如果需要测试日期筛选功能，可以使用以下代码
+            # 需要将DATE替换为实际的日期前缀(例如"2023-10-24")
+            print("\n测试按日期筛选偏好...")
+            result = await session.call_tool("get_user_preference", {"create_time": "DATE"})
+            print(result)
 
             # # 列出可用工具
             # print("\n获取可用工具列表...")

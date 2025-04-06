@@ -1,0 +1,74 @@
+[
+  {
+    "dimension": "回答风格-长度",
+    "value": "concise",
+    "confidence": "high",
+    "evidence": "用户说：'长话短说，告诉我关键点就行。'",
+    "create_time": "2025-04-06T10:51:20.162235"
+  },
+  {
+    "dimension": "技术背景-编程语言",
+    "value": [
+      "Python",
+      "JavaScript"
+    ],
+    "confidence": "medium",
+    "evidence": "用户多次询问关于Python和React的问题。",
+    "create_time": "2025-04-06T10:51:20.162235"
+  },
+  {
+    "dimension": "语言与语气-语言风格",
+    "value": "casual_with_emoji",
+    "confidence": "medium",
+    "evidence": "用户在对话中经常使用表情符号。",
+    "create_time": "2025-04-06T10:51:20.162235"
+  },
+  {
+    "dimension": "回答风格-长度",
+    "value": "concise",
+    "confidence": "high",
+    "evidence": "用户说：'长话短说，告诉我关键点就行。'",
+    "create_time": "2025-04-06T10:53:34.272502"
+  },
+  {
+    "dimension": "技术背景-编程语言",
+    "value": [
+      "Python",
+      "JavaScript"
+    ],
+    "confidence": "medium",
+    "evidence": "用户多次询问关于Python和React的问题。",
+    "create_time": "2025-04-06T10:53:34.272502"
+  },
+  {
+    "dimension": "语言与语气-语言风格",
+    "value": "casual_with_emoji",
+    "confidence": "medium",
+    "evidence": "用户在对话中经常使用表情符号。",
+    "create_time": "2025-04-06T10:53:34.272502"
+  },
+  {
+    "dimension": "回答风格-长度",
+    "value": "concise",
+    "confidence": "high",
+    "evidence": "用户说：'长话短说，告诉我关键点就行。'",
+    "create_time": "2025-04-06T10:53:48.773660"
+  },
+  {
+    "dimension": "技术背景-编程语言",
+    "value": [
+      "Python",
+      "JavaScript"
+    ],
+    "confidence": "medium",
+    "evidence": "用户多次询问关于Python和React的问题。",
+    "create_time": "2025-04-06T10:53:48.773660"
+  },
+  {
+    "dimension": "语言与语气-语言风格",
+    "value": "casual_with_emoji",
+    "confidence": "medium",
+    "evidence": "用户在对话中经常使用表情符号。",
+    "create_time": "2025-04-06T10:53:48.773660"
+  }
+]
