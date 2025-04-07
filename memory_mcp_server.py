@@ -570,7 +570,9 @@ def chat_with_user_preference_prompt(create_time: str = None, count: int = None)
     - count: 返回的偏好数量（可选）
     """
     preference_file = "user_preference.json"
-  
+    if count:
+        count = int(count)
+        
     # 读取用户偏好数据
     if not os.path.exists(preference_file):
         return "未找到用户偏好数据"
@@ -642,7 +644,7 @@ def chat_with_user_preference_prompt(create_time: str = None, count: int = None)
 
 - 偏好冲突 (理论上不应由该 Prompt 处理，应在生成偏好时解决): 如果遇到内部冲突的偏好，请尝试理解用户意图或使用最通用、最安全的选项。
 
-你的目标: 像一个了解用户习惯的朋友一样进行交流，提供精准、贴心且高效的帮助。
+你的目标: 像一个了解用户习惯的朋友一样进行交流，提供精准、贴心且高效的帮助。需要在回复中，根据用户偏好，调整回答的风格、内容、格式等（标注、强调出用户偏好的重点信息）。
 """
     
     return chat_prompt
